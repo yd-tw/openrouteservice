@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import { findPedestrianRoute } from "@/utils/walkRouter";
 
 export type TravelMode = "car" | "pedestrian";
 export type LngLat = [number, number];
@@ -9,9 +10,8 @@ export interface NavigateAvoidRequest {
   mode: TravelMode;
 }
 
-const ORS_PROFILE: Record<TravelMode, string> = {
+const ORS_PROFILE: Record<"car", string> = {
   car: "driving-car",
-  pedestrian: "foot-walking",
 };
 
 const AVOID_SOURCE_PATH = "/geo_example.json";
@@ -92,7 +92,11 @@ function parseSearchParams(
 
 // Spherical destination point: build a polygon ring approximating a circle of
 // radius_m metres around `center`. Returns a closed ring (last == first).
-function bufferPoint(center: LngLat, radius_m: number, segments = CIRCLE_SEGMENTS): Ring {
+function bufferPoint(
+  center: LngLat,
+  radius_m: number,
+  segments = CIRCLE_SEGMENTS,
+): Ring {
   const [lng, lat] = center;
   const latRad = (lat * Math.PI) / 180;
   const lngRad = (lng * Math.PI) / 180;
@@ -100,7 +104,9 @@ function bufferPoint(center: LngLat, radius_m: number, segments = CIRCLE_SEGMENT
   const ring: Ring = [];
   for (let i = 0; i < segments; i++) {
     const bearing = (2 * Math.PI * i) / segments;
-    const sinLat = Math.sin(latRad) * Math.cos(angular) + Math.cos(latRad) * Math.sin(angular) * Math.cos(bearing);
+    const sinLat =
+      Math.sin(latRad) * Math.cos(angular) +
+      Math.cos(latRad) * Math.sin(angular) * Math.cos(bearing);
     const newLat = Math.asin(sinLat);
     const newLng =
       lngRad +
@@ -116,7 +122,11 @@ function bufferPoint(center: LngLat, radius_m: number, segments = CIRCLE_SEGMENT
 
 interface SourceFeature {
   type: "Feature";
-  geometry: { type?: string; coordinates?: unknown; geometries?: unknown[] } | null;
+  geometry: {
+    type?: string;
+    coordinates?: unknown;
+    geometries?: unknown[];
+  } | null;
   properties?: Record<string, unknown> | null;
 }
 
@@ -135,7 +145,11 @@ function isFeatureCollection(v: unknown): v is SourceFeatureCollection {
 // on every coordinate pair. Used to buffer every vertex into an avoidance circle.
 function forEachVertex(geom: unknown, cb: (p: LngLat) => void): void {
   if (!geom || typeof geom !== "object") return;
-  const g = geom as { type?: string; coordinates?: unknown; geometries?: unknown[] };
+  const g = geom as {
+    type?: string;
+    coordinates?: unknown;
+    geometries?: unknown[];
+  };
 
   if (g.type === "GeometryCollection" && Array.isArray(g.geometries)) {
     for (const sub of g.geometries) forEachVertex(sub, cb);
@@ -186,13 +200,17 @@ function buildAvoidGeometry(fc: SourceFeatureCollection): {
   }
 
   return {
-    geometry: polys.length ? { type: "MultiPolygon", coordinates: polys } : null,
+    geometry: polys.length
+      ? { type: "MultiPolygon", coordinates: polys }
+      : null,
     vertexCount,
     featureCount: fc.features.length,
   };
 }
 
-async function fetchAvoidSource(request: NextRequest): Promise<SourceFeatureCollection | null> {
+async function fetchAvoidSource(
+  request: NextRequest,
+): Promise<SourceFeatureCollection | null> {
   const url = new URL(AVOID_SOURCE_PATH, request.nextUrl.origin);
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) return null;
@@ -220,7 +238,7 @@ function stepCoords(coords: LngLat[], [a, b]: [number, number]): LngLat[] {
 async function routeViaOrs(
   origin: LngLat,
   destination: LngLat,
-  mode: TravelMode,
+  mode: "car",
   avoid: MultiPolygon | null,
 ): Promise<OrsFeature> {
   const apiKey = process.env.OPENROUTESERVICE_API_KEY;
@@ -247,7 +265,7 @@ async function routeViaOrs(
     const msg =
       typeof data.error === "string"
         ? data.error
-        : data.error?.message ?? `HTTP ${res.status}`;
+        : (data.error?.message ?? `HTTP ${res.status}`);
     throw new Error(`ORS: ${msg}`);
   }
   return data.features[0];
@@ -255,7 +273,8 @@ async function routeViaOrs(
 
 export async function GET(request: NextRequest) {
   const parsed = parseSearchParams(request.nextUrl.searchParams);
-  if ("error" in parsed) return Response.json({ error: parsed.error }, { status: 400 });
+  if ("error" in parsed)
+    return Response.json({ error: parsed.error }, { status: 400 });
 
   const { origin, destination, mode } = parsed;
 
@@ -264,6 +283,32 @@ export async function GET(request: NextRequest) {
     const avoid = source
       ? buildAvoidGeometry(source)
       : { geometry: null, vertexCount: 0, featureCount: 0 };
+
+    if (mode === "pedestrian") {
+      const route = await findPedestrianRoute(origin, destination, {
+        avoid: avoid.geometry,
+      });
+      const fc: FeatureCollection = {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            geometry: { type: "LineString", coordinates: route.coordinates },
+            properties: {
+              mode,
+              provider: "astar-sidewalks",
+              distance_m: route.distance_m,
+              duration_s: route.duration_s,
+              avoid_source: AVOID_SOURCE_PATH,
+              avoid_radius_m: AVOID_RADIUS_M,
+              avoid_feature_count: avoid.featureCount,
+              avoid_vertex_count: avoid.vertexCount,
+            },
+          },
+        ],
+      };
+      return Response.json(fc);
+    }
 
     const route = await routeViaOrs(origin, destination, mode, avoid.geometry);
     const coords = route.geometry.coordinates;
@@ -307,7 +352,8 @@ export async function GET(request: NextRequest) {
 
     return Response.json(fc);
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Unknown routing error";
+    const message =
+      err instanceof Error ? err.message : "Unknown routing error";
     return Response.json({ error: message }, { status: 502 });
   }
 }

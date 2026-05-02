@@ -69,7 +69,8 @@ for (const entry of raw) {
 const fc = { type: "FeatureCollection", features };
 fs.writeFileSync(OUT_PATH, JSON.stringify(fc, null, 2) + "\n", "utf8");
 
-const dedupSkipped = raw.length - features.length - skippedNoGeo - skippedBadCoord;
+const dedupSkipped =
+  raw.length - features.length - skippedNoGeo - skippedBadCoord;
 console.log(
   `Wrote ${features.length} features to ${path.relative(ROOT, OUT_PATH)} ` +
     `(input ${raw.length}, skipped ${skippedNoGeo} no-geo, ${skippedBadCoord} bad-coord, ${dedupSkipped} duplicate)`,

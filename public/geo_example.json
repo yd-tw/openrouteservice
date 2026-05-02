@@ -5,10 +5,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5469574,
-          25.0417918
-        ]
+        "coordinates": [121.5469574, 25.0417918]
       },
       "properties": {
         "address": "大安區忠孝東路四段73號至97號、忠孝東路四段120號至134號 自門牌號至門牌號",
@@ -25,10 +22,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5516545,
-          25.0460883
-        ]
+        "coordinates": [121.5516545, 25.0460883]
       },
       "properties": {
         "address": "松山區八德路三段１２巷５１弄３０號 自門牌號至門牌號",
@@ -45,10 +39,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5257221,
-          25.0591041
-        ]
+        "coordinates": [121.5257221, 25.0591041]
       },
       "properties": {
         "address": "中山區林森北路３９９巷２號 自門牌號至門牌號",
@@ -65,10 +56,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.544281,
-          25.052987
-        ]
+        "coordinates": [121.544281, 25.052987]
       },
       "properties": {
         "address": "松山區復興北路１０１號 自門牌號至門牌號",
@@ -85,10 +73,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5219367,
-          25.0570414
-        ]
+        "coordinates": [121.5219367, 25.0570414]
       },
       "properties": {
         "address": "中山區中山北路二段７２巷7號9號 自門牌號至門牌號",
@@ -105,10 +90,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5018925,
-          25.041617
-        ]
+        "coordinates": [121.5018925, 25.041617]
       },
       "properties": {
         "address": "萬華區內江街１４６號 自門牌號至門牌號",
@@ -125,10 +107,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5127272,
-          25.0592123
-        ]
+        "coordinates": [121.5127272, 25.0592123]
       },
       "properties": {
         "address": "大同區保安街２7號至35號 自門牌號至門牌號",
@@ -145,10 +124,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5302058,
-          25.0635964
-        ]
+        "coordinates": [121.5302058, 25.0635964]
       },
       "properties": {
         "address": "中山區吉林路３４８號 自門牌號至門牌號",
@@ -165,10 +141,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5480344,
-          25.079796
-        ]
+        "coordinates": [121.5480344, 25.079796]
       },
       "properties": {
         "address": "中山區北安路５３８巷１弄１號 自門牌號至門牌號",
@@ -185,10 +158,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5186215,
-          25.1106755
-        ]
+        "coordinates": [121.5186215, 25.1106755]
       },
       "properties": {
         "address": "北投區東華街一段400巷4號 自門牌號至門牌號",
@@ -205,10 +175,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5639819,
-          25.0274338
-        ]
+        "coordinates": [121.5639819, 25.0274338]
       },
       "properties": {
         "address": "信義區吳興街２６９巷１弄 自門牌號至門牌號",
@@ -225,10 +192,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5304233,
-          25.063286
-        ]
+        "coordinates": [121.5304233, 25.063286]
       },
       "properties": {
         "address": "中山區吉林路３０３號 自門牌號至門牌號",
@@ -245,10 +209,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5209447,
-          25.0527012
-        ]
+        "coordinates": [121.5209447, 25.0527012]
       },
       "properties": {
         "address": "中山區南京西路15號 自門牌號至門牌號",
@@ -265,10 +226,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.4944203,
-          25.0292969
-        ]
+        "coordinates": [121.4944203, 25.0292969]
       },
       "properties": {
         "address": "萬華區雙園街１８巷1至13號 自門牌號至門牌號",
@@ -285,10 +243,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5669784,
-          25.0520362
-        ]
+        "coordinates": [121.5669784, 25.0520362]
       },
       "properties": {
         "address": "松山區南京東路五段19號 自門牌號至門牌號",
@@ -305,10 +260,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5159283,
-          25.0664856
-        ]
+        "coordinates": [121.5159283, 25.0664856]
       },
       "properties": {
         "address": "大同區大龍街９４號 自門牌號至門牌號",
@@ -325,10 +277,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.6290088,
-          25.0363317
-        ]
+        "coordinates": [121.6290088, 25.0363317]
       },
       "properties": {
         "address": "南港區舊莊街二段２380號 自門牌號至門牌號",
@@ -345,10 +294,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5336,
-          25.0151273
-        ]
+        "coordinates": [121.5336, 25.0151273]
       },
       "properties": {
         "address": "中正區羅斯福路四段44號至50號 自門牌號至門牌號",
@@ -365,10 +311,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5110779,
-          25.0576381
-        ]
+        "coordinates": [121.5110779, 25.0576381]
       },
       "properties": {
         "address": "大同區延平北路二段１４４巷 延平北路二段端至民樂街端 自門牌號至門牌號",
@@ -385,10 +328,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5566584,
-          25.0057039
-        ]
+        "coordinates": [121.5566584, 25.0057039]
       },
       "properties": {
         "address": "文山區辛亥路四段１０８巷 自門牌號至門牌號",
@@ -405,10 +345,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.4964164,
-          25.0374803
-        ]
+        "coordinates": [121.4964164, 25.0374803]
       },
       "properties": {
         "address": "萬華區環河南路二段75號至83號 自門牌號至門牌號",
@@ -425,10 +362,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5475569,
-          24.9959426
-        ]
+        "coordinates": [121.5475569, 24.9959426]
       },
       "properties": {
         "address": "文山區景華街121巷7弄2號至景華街121巷13號 自門牌號至門牌號",
@@ -445,10 +379,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5288533,
-          25.060455
-        ]
+        "coordinates": [121.5288533, 25.060455]
       },
       "properties": {
         "address": "中山區錦州街１２３號 自門牌號至門牌號",
@@ -465,10 +396,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5069661,
-          25.121048
-        ]
+        "coordinates": [121.5069661, 25.121048]
       },
       "properties": {
         "address": "北投區東華街二段２９４號 自門牌號至門牌號",
@@ -485,10 +413,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5262838,
-          25.111558
-        ]
+        "coordinates": [121.5262838, 25.111558]
       },
       "properties": {
         "address": "士林區士東路２巷5號 自門牌號至門牌號",
@@ -505,10 +430,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5006987,
-          25.0390955
-        ]
+        "coordinates": [121.5006987, 25.0390955]
       },
       "properties": {
         "address": "萬華區西昌街165號 自門牌號至門牌號",
@@ -525,10 +447,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5448804,
-          25.041884
-        ]
+        "coordinates": [121.5448804, 25.041884]
       },
       "properties": {
         "address": "臺北市大安區忠孝東路四段45號 自門牌號至門牌號",
@@ -545,10 +464,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5590371,
-          25.0179154
-        ]
+        "coordinates": [121.5590371, 25.0179154]
       },
       "properties": {
         "address": "大安區和平東路三段４１６巷５號 自門牌號至門牌號",
@@ -565,10 +481,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5210919,
-          25.0327465
-        ]
+        "coordinates": [121.5210919, 25.0327465]
       },
       "properties": {
         "address": "中正區愛國東路106號至114號 自門牌號至門牌號",
@@ -585,10 +498,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5608957,
-          25.0586119
-        ]
+        "coordinates": [121.5608957, 25.0586119]
       },
       "properties": {
         "address": "松山區民生東路五段163號與三路圓環處 (民生社區中心) 自門牌號至門牌號",
@@ -605,10 +515,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5092017,
-          25.0613163
-        ]
+        "coordinates": [121.5092017, 25.0613163]
       },
       "properties": {
         "address": "大同區迪化街一段296號 自門牌號至門牌號",
@@ -625,10 +532,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5465757,
-          25.0574468
-        ]
+        "coordinates": [121.5465757, 25.0574468]
       },
       "properties": {
         "address": "松山區民生東路三段132至134號 自門牌號至門牌號",
@@ -645,10 +549,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5331896,
-          25.0483278
-        ]
+        "coordinates": [121.5331896, 25.0483278]
       },
       "properties": {
         "address": "中山區松江路47號起至59號止 自門牌號至門牌號",
@@ -665,10 +566,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5247008,
-          25.0250547
-        ]
+        "coordinates": [121.5247008, 25.0250547]
       },
       "properties": {
         "address": "大安區羅斯福路二段８１巷１６弄５號 自門牌號至門牌號",
@@ -685,10 +583,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5753866,
-          25.0450022
-        ]
+        "coordinates": [121.5753866, 25.0450022]
       },
       "properties": {
         "address": "信義區永吉路３２６巷４號至５０號 自門牌號至門牌號",
@@ -705,10 +600,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5673125,
-          25.043308
-        ]
+        "coordinates": [121.5673125, 25.043308]
       },
       "properties": {
         "address": "基隆路一段１０９巷與松隆路邊（敦厚里革新公園） 自門牌號至門牌號",
@@ -725,10 +617,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5013485,
-          25.091771
-        ]
+        "coordinates": [121.5013485, 25.091771]
       },
       "properties": {
         "address": "士林區倫等街30巷9號 自門牌號至門牌號",
@@ -745,10 +634,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5511699,
-          25.0240263
-        ]
+        "coordinates": [121.5511699, 25.0240263]
       },
       "properties": {
         "address": "大安區和平東路三段９８巷２弄１之１號，咖啡廳前的路段 自門牌號至門牌號",
@@ -765,10 +651,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5340248,
-          25.1184356
-        ]
+        "coordinates": [121.5340248, 25.1184356]
       },
       "properties": {
         "address": "士林區天母東路6號 自門牌號至門牌號",
@@ -785,10 +668,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5542247,
-          25.054663
-        ]
+        "coordinates": [121.5542247, 25.054663]
       },
       "properties": {
         "address": "松山區光復北路１９０巷３９號 自門牌號至門牌號",
@@ -805,10 +685,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5126432,
-          25.0556827
-        ]
+        "coordinates": [121.5126432, 25.0556827]
       },
       "properties": {
         "address": "大同區重慶北路二段64巷38號和南京西路167巷(大同區朝陽公園) 自門牌號至門牌號",
@@ -825,10 +702,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5023071,
-          25.0343896
-        ]
+        "coordinates": [121.5023071, 25.0343896]
       },
       "properties": {
         "address": "大理街20-1號 自門牌號至門牌號",
@@ -845,10 +719,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5174505,
-          25.0498139
-        ]
+        "coordinates": [121.5174505, 25.0498139]
       },
       "properties": {
         "address": "大同區華陰街97號至99號 建明里辦公處 自門牌號至門牌號",
@@ -865,10 +736,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5394691,
-          24.9991489
-        ]
+        "coordinates": [121.5394691, 24.9991489]
       },
       "properties": {
         "address": "文山區景福街 21巷 3弄 9號至 11  號 自門牌號至門牌號",
@@ -885,10 +753,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5334298,
-          25.0416639
-        ]
+        "coordinates": [121.5334298, 25.0416639]
       },
       "properties": {
         "address": "大安區忠孝東路三段１０巷８號 自門牌號至門牌號",
@@ -905,10 +770,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5899168,
-          25.0594401
-        ]
+        "coordinates": [121.5899168, 25.0594401]
       },
       "properties": {
         "address": "內湖區新明路１２２之２號 自門牌號至門牌號",
@@ -925,10 +787,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5122439,
-          25.0647179
-        ]
+        "coordinates": [121.5122439, 25.0647179]
       },
       "properties": {
         "address": "大同區伊寧街３７號 自門牌號至門牌號",
@@ -945,10 +804,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5077885,
-          25.0248596
-        ]
+        "coordinates": [121.5077885, 25.0248596]
       },
       "properties": {
         "address": "萬華區國興路４２號至54號 自門牌號至門牌號",
@@ -965,10 +821,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5576666,
-          25.0320026
-        ]
+        "coordinates": [121.5576666, 25.0320026]
       },
       "properties": {
         "address": "信義區光復南路５０５號 自門牌號至門牌號",
@@ -985,10 +838,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5876364,
-          25.0627432
-        ]
+        "coordinates": [121.5876364, 25.0627432]
       },
       "properties": {
         "address": "內湖區石潭路28號旁 自門牌號至門牌號",
@@ -1005,10 +855,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.576185,
-          25.0358853
-        ]
+        "coordinates": [121.576185, 25.0358853]
       },
       "properties": {
         "address": "信義區虎林街２３２巷５３號至５９號（安康里辦公室前） 自門牌號至門牌號",
@@ -1025,10 +872,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5479923,
-          25.0519641
-        ]
+        "coordinates": [121.5479923, 25.0519641]
       },
       "properties": {
         "address": "松山區南京東路三段337號 自門牌號至門牌號",
@@ -1045,10 +889,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5163819,
-          25.0858113
-        ]
+        "coordinates": [121.5163819, 25.0858113]
       },
       "properties": {
         "address": "士林區通河東街一段１０５巷１弄１１號 自門牌號至門牌號",
@@ -1065,10 +906,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5522932,
-          25.0453712
-        ]
+        "coordinates": [121.5522932, 25.0453712]
       },
       "properties": {
         "address": "松山區八德路三段１２巷５７弄４１號 自門牌號至門牌號",
@@ -1085,10 +923,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5314799,
-          25.0574219
-        ]
+        "coordinates": [121.5314799, 25.0574219]
       },
       "properties": {
         "address": "松江路25巷40號前(五福財神爺廟前) 自門牌號至門牌號",
@@ -1105,10 +940,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5311939,
-          25.0547027
-        ]
+        "coordinates": [121.5311939, 25.0547027]
       },
       "properties": {
         "address": "中山區長春路１40號 自門牌號至門牌號",
@@ -1125,10 +957,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5087803,
-          25.0921506
-        ]
+        "coordinates": [121.5087803, 25.0921506]
       },
       "properties": {
         "address": "士林區社中街２１０巷36號到42號 自門牌號至門牌號",
@@ -1145,10 +974,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5244668,
-          25.0830368
-        ]
+        "coordinates": [121.5244668, 25.0830368]
       },
       "properties": {
         "address": "士林區基河路302號旁，基河路大客車停車場旁，新光環保站前 自門牌號至門牌號",
@@ -1165,10 +991,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5397586,
-          24.9984253
-        ]
+        "coordinates": [121.5397586, 24.9984253]
       },
       "properties": {
         "address": "文山區景福街３巷２７號 自門牌號至門牌號",
@@ -1185,10 +1008,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5111338,
-          25.0623149
-        ]
+        "coordinates": [121.5111338, 25.0623149]
       },
       "properties": {
         "address": "大同區延平北路二段278號至282號(全家福鞋業) 自門牌號至門牌號",
@@ -1205,10 +1025,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5107763,
-          25.0890753
-        ]
+        "coordinates": [121.5107763, 25.0890753]
       },
       "properties": {
         "address": "士林區社正路７５號 自門牌號至門牌號",
@@ -1225,10 +1042,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5034991,
-          25.1313153
-        ]
+        "coordinates": [121.5034991, 25.1313153]
       },
       "properties": {
         "address": "北投區磺港路78號至92號 自門牌號至門牌號",
@@ -1245,10 +1059,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5203403,
-          25.0442676
-        ]
+        "coordinates": [121.5203403, 25.0442676]
       },
       "properties": {
         "address": "中正區青島東路31號至53號 自門牌號至門牌號",
@@ -1265,10 +1076,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5484103,
-          25.0386896
-        ]
+        "coordinates": [121.5484103, 25.0386896]
       },
       "properties": {
         "address": "臺北市私立復興實驗高級中學前方人行道，臺北市大安區敦化南路1段262號 自門牌號至門牌號",
@@ -1285,10 +1093,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5373216,
-          25.0596816
-        ]
+        "coordinates": [121.5373216, 25.0596816]
       },
       "properties": {
         "address": "中山區建國北路二段１２１號 自門牌號至門牌號",
@@ -1305,10 +1110,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.4735047,
-          25.1066817
-        ]
+        "coordinates": [121.4735047, 25.1066817]
       },
       "properties": {
         "address": "士林區延平北路九段臨３０９號 自門牌號至門牌號",
@@ -1325,10 +1127,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5209152,
-          25.0294984
-        ]
+        "coordinates": [121.5209152, 25.0294984]
       },
       "properties": {
         "address": "中正區羅斯福路二段3號 自門牌號至門牌號",
@@ -1345,10 +1144,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5585964,
-          25.018906
-        ]
+        "coordinates": [121.5585964, 25.018906]
       },
       "properties": {
         "address": "信義區和平東路三段４４７號 自門牌號至門牌號",
@@ -1365,10 +1161,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5021842,
-          25.1384768
-        ]
+        "coordinates": [121.5021842, 25.1384768]
       },
       "properties": {
         "address": "北投區中和街51號至63號 自門牌號至門牌號",
@@ -1385,10 +1178,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5008967,
-          25.1136769
-        ]
+        "coordinates": [121.5008967, 25.1136769]
       },
       "properties": {
         "address": "北投區立賢路２００號 自門牌號至門牌號",
@@ -1405,10 +1195,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.4733886,
-          25.1061941
-        ]
+        "coordinates": [121.4733886, 25.1061941]
       },
       "properties": {
         "address": "士林區延平北路九段１１７號 自門牌號至門牌號",
@@ -1425,10 +1212,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5190056,
-          25.0419179
-        ]
+        "coordinates": [121.5190056, 25.0419179]
       },
       "properties": {
         "address": "中正區徐州路１號 自門牌號至門牌號",
@@ -1445,10 +1229,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5013248,
-          25.1333712
-        ]
+        "coordinates": [121.5013248, 25.1333712]
       },
       "properties": {
         "address": "北投區中央北路一段１號 自門牌號至門牌號",
@@ -1465,10 +1246,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.6042057,
-          25.0732683
-        ]
+        "coordinates": [121.6042057, 25.0732683]
       },
       "properties": {
         "address": "內湖區金湖路４０３之１號 自門牌號至門牌號",
@@ -1485,10 +1263,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5755484,
-          25.0360313
-        ]
+        "coordinates": [121.5755484, 25.0360313]
       },
       "properties": {
         "address": "信義區松德路１６９巷３６號旁 自門牌號至門牌號",
@@ -1505,10 +1280,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5584669,
-          25.0365988
-        ]
+        "coordinates": [121.5584669, 25.0365988]
       },
       "properties": {
         "address": "信義區基隆路一段３５巷７弄31~41號 自門牌號至門牌號",
@@ -1525,10 +1297,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5288888,
-          25.0649962
-        ]
+        "coordinates": [121.5288888, 25.0649962]
       },
       "properties": {
         "address": "中山區農安街87號 自門牌號至門牌號",
@@ -1545,10 +1314,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.570375,
-          24.9885005
-        ]
+        "coordinates": [121.570375, 24.9885005]
       },
       "properties": {
         "address": "文山區指南路一段51巷17號 自門牌號至門牌號",
@@ -1565,10 +1331,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5775207,
-          25.0433897
-        ]
+        "coordinates": [121.5775207, 25.0433897]
       },
       "properties": {
         "address": "信義區松山路２９０號至282號 自門牌號至門牌號",
@@ -1585,10 +1348,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5857305,
-          25.0398848
-        ]
+        "coordinates": [121.5857305, 25.0398848]
       },
       "properties": {
         "address": "信義區福德街２６８巷３２號 自門牌號至門牌號",
@@ -1605,10 +1365,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.557016,
-          25.040553
-        ]
+        "coordinates": [121.557016, 25.040553]
       },
       "properties": {
         "address": "大安區光復南路240巷9號至23號 自門牌號至門牌號",
@@ -1625,10 +1382,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5033948,
-          25.1318825
-        ]
+        "coordinates": [121.5033948, 25.1318825]
       },
       "properties": {
         "address": "北投區磺港路６８號 自門牌號至門牌號",
@@ -1645,10 +1399,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5857692,
-          25.0397748
-        ]
+        "coordinates": [121.5857692, 25.0397748]
       },
       "properties": {
         "address": "信義區福德街２６８巷２８號至３２號（中行里辦公處） 自門牌號至門牌號",
@@ -1665,10 +1416,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5513241,
-          25.0219902
-        ]
+        "coordinates": [121.5513241, 25.0219902]
       },
       "properties": {
         "address": "臺北市 大安 區 樂業街108巷1 號至 11 號 自門牌號至門牌號",
@@ -1685,10 +1433,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.4953734,
-          25.0362548
-        ]
+        "coordinates": [121.4953734, 25.0362548]
       },
       "properties": {
         "address": "萬華區環河南路二段93號 自門牌號至門牌號",
@@ -1705,10 +1450,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5099462,
-          25.0453459
-        ]
+        "coordinates": [121.5099462, 25.0453459]
       },
       "properties": {
         "address": "臺北市中正區中華路一段39號(騰雲大樓) 自門牌號至門牌號",
@@ -1725,10 +1467,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5571558,
-          25.0423489
-        ]
+        "coordinates": [121.5571558, 25.0423489]
       },
       "properties": {
         "address": "大安區光復南路240巷26號至大安區光復南路308巷18號 自門牌號至門牌號",
@@ -1745,10 +1484,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5194433,
-          25.0299532
-        ]
+        "coordinates": [121.5194433, 25.0299532]
       },
       "properties": {
         "address": "中正區羅斯福路一段8號 自門牌號至門牌號",
@@ -1765,10 +1501,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5517569,
-          25.0238998
-        ]
+        "coordinates": [121.5517569, 25.0238998]
       },
       "properties": {
         "address": "大安區基隆路二段２００號 自門牌號至門牌號",
@@ -1785,10 +1518,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5430574,
-          25.041203
-        ]
+        "coordinates": [121.5430574, 25.041203]
       },
       "properties": {
         "address": "大安區忠孝東路三段３００號 (SOGO復興館) 自門牌號至門牌號",
@@ -1805,10 +1535,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5847776,
-          25.0523092
-        ]
+        "coordinates": [121.5847776, 25.0523092]
       },
       "properties": {
         "address": "南港區南港路三段１４５號 自門牌號至門牌號",
@@ -1825,10 +1552,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5099257,
-          25.0768555
-        ]
+        "coordinates": [121.5099257, 25.0768555]
       },
       "properties": {
         "address": "大同區敦煌路199至205號 自門牌號至門牌號",
@@ -1845,10 +1569,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5396023,
-          25.0664957
-        ]
+        "coordinates": [121.5396023, 25.0664957]
       },
       "properties": {
         "address": "中山區龍江路３７０巷２5號至33號 自門牌號至門牌號",
@@ -1865,10 +1586,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5434287,
-          25.0508577
-        ]
+        "coordinates": [121.5434287, 25.0508577]
       },
       "properties": {
         "address": "中山區南京東路三段206~２０８號 自門牌號至門牌號",
@@ -1885,10 +1603,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.4939715,
-          25.0264105
-        ]
+        "coordinates": [121.4939715, 25.0264105]
       },
       "properties": {
         "address": "萬華區寶興街６８巷2號至40號 自門牌號至門牌號",
@@ -1905,10 +1620,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5246145,
-          25.0561219
-        ]
+        "coordinates": [121.5246145, 25.0561219]
       },
       "properties": {
         "address": "中山區林森北路３１０巷10號~16號 冠德國賓藝術 自門牌號至門牌號",
@@ -1925,10 +1637,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.546303,
-          24.9851451
-        ]
+        "coordinates": [121.546303, 24.9851451]
       },
       "properties": {
         "address": "文山區和興路８８之２號 自門牌號至門牌號",
@@ -1945,10 +1654,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5441565,
-          25.0404546
-        ]
+        "coordinates": [121.5441565, 25.0404546]
       },
       "properties": {
         "address": "大安區復興南路一段１９１號 自門牌號至門牌號",
@@ -1965,10 +1671,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5297444,
-          25.1205986
-        ]
+        "coordinates": [121.5297444, 25.1205986]
       },
       "properties": {
         "address": "台北市士林區天玉街44巷7號 自門牌號至門牌號",
@@ -1985,10 +1688,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.6156503,
-          25.0478967
-        ]
+        "coordinates": [121.6156503, 25.0478967]
       },
       "properties": {
         "address": "南港區研究院路二段６號 自門牌號至門牌號",
@@ -2005,10 +1705,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.525375,
-          25.0953609
-        ]
+        "coordinates": [121.525375, 25.0953609]
       },
       "properties": {
         "address": "士林區中正路２３６號 自門牌號至門牌號",
@@ -2025,10 +1722,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5203426,
-          25.084918
-        ]
+        "coordinates": [121.5203426, 25.084918]
       },
       "properties": {
         "address": "士林區前港街66號 自門牌號至門牌號",
@@ -2045,10 +1739,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5521262,
-          25.0433631
-        ]
+        "coordinates": [121.5521262, 25.0433631]
       },
       "properties": {
         "address": "大安區敦化南路一段１６１巷62號至66號 自門牌號至門牌號",
@@ -2065,10 +1756,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5259127,
-          25.0659316
-        ]
+        "coordinates": [121.5259127, 25.0659316]
       },
       "properties": {
         "address": "中山區林森北路５７５之９號(臺灣銀行圓山分行旁) 自門牌號至門牌號",
@@ -2085,10 +1773,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5516678,
-          25.0303921
-        ]
+        "coordinates": [121.5516678, 25.0303921]
       },
       "properties": {
         "address": "大安區安和路二段３號 自門牌號至門牌號",
@@ -2105,10 +1790,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5812262,
-          24.9986524
-        ]
+        "coordinates": [121.5812262, 24.9986524]
       },
       "properties": {
         "address": "文山區新光路二段30號，動物園售票處與捷運站間人行道 自門牌號至門牌號",
@@ -2125,10 +1807,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5223643,
-          25.0481811
-        ]
+        "coordinates": [121.5223643, 25.0481811]
       },
       "properties": {
         "address": "中山區天津街１４號 自門牌號至門牌號",
@@ -2145,10 +1824,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5520031,
-          25.054133
-        ]
+        "coordinates": [121.5520031, 25.054133]
       },
       "properties": {
         "address": "松山區敦化北路１５５巷９7號 自門牌號至門牌號",
@@ -2165,10 +1841,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5681152,
-          25.0249569
-        ]
+        "coordinates": [121.5681152, 25.0249569]
       },
       "properties": {
         "address": "信義區松仁路228巷9弄6-12號對面 (六合區民活動中心) 自門牌號至門牌號",
@@ -2185,10 +1858,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5075307,
-          25.1391618
-        ]
+        "coordinates": [121.5075307, 25.1391618]
       },
       "properties": {
         "address": "北投區新民路２２巷3號至9號 自門牌號至門牌號",
@@ -2205,10 +1875,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5658579,
-          25.0343634
-        ]
+        "coordinates": [121.5658579, 25.0343634]
       },
       "properties": {
         "address": "信義區松智路17號、松壽路12號 自門牌號至門牌號",
@@ -2225,10 +1892,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5815768,
-          25.0426025
-        ]
+        "coordinates": [121.5815768, 25.0426025]
       },
       "properties": {
         "address": "信義區大道路９號 自門牌號至門牌號",
@@ -2245,10 +1909,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5105487,
-          25.0605392
-        ]
+        "coordinates": [121.5105487, 25.0605392]
       },
       "properties": {
         "address": "大同區涼州街８２號 自門牌號至門牌號",
@@ -2265,10 +1926,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5059146,
-          25.0268344
-        ]
+        "coordinates": [121.5059146, 25.0268344]
       },
       "properties": {
         "address": "萬華區國興路８８號 自門牌號至門牌號",
@@ -2285,10 +1943,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.542435,
-          24.9914856
-        ]
+        "coordinates": [121.542435, 24.9914856]
       },
       "properties": {
         "address": "文山區景後街１３０號(景美寶雅前方) 自門牌號至門牌號",
@@ -2305,10 +1960,7 @@
       "type": "Feature",
       "geometry": {
         "type": "Point",
-        "coordinates": [
-          121.5014579,
-          25.0916643
-        ]
+        "coordinates": [121.5014579, 25.0916643]
       },
       "properties": {
         "address": "士林區延平北路六段368巷25號~33號,士林區社中街458巷 自門牌號至門牌號",

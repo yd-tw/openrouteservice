@@ -72,7 +72,7 @@ function projectOnSegment(p, a, b) {
   const cx = ax + t * dx;
   const cy = ay + t * dy;
   const distM = Math.hypot(px - cx, py - cy);
-  const point = [a[0] + (cx / mPerLng), a[1] + (cy / mPerLat)];
+  const point = [a[0] + cx / mPerLng, a[1] + cy / mPerLat];
   return { t, distM, point };
 }
 
@@ -87,7 +87,11 @@ function projectOnPolyline(p, line) {
     const segLen = haversineM(a, b);
     const proj = projectOnSegment(p, a, b);
     if (proj.distM < best.distM) {
-      best = { distM: proj.distM, along: cum + proj.t * segLen, point: proj.point };
+      best = {
+        distM: proj.distM,
+        along: cum + proj.t * segLen,
+        point: proj.point,
+      };
     }
     cum += segLen;
   }
@@ -187,7 +191,8 @@ const lineSegments = [];
 for (const feat of routesRaw.features) {
   const routeName = feat.properties?.RouteName ?? `unknown-${feat.id}`;
   const g = feat.geometry;
-  const polylines = g.type === "MultiLineString" ? g.coordinates : [g.coordinates];
+  const polylines =
+    g.type === "MultiLineString" ? g.coordinates : [g.coordinates];
   for (const poly of polylines) {
     const wgs = poly.map(toLngLat);
     if (wgs.length >= 2) lineSegments.push({ line: routeName, coords: wgs });
@@ -255,14 +260,19 @@ console.log(`Built ${edges.length} edges`);
 const orphanStations = stations.filter((s) => !onLineCount.has(s.name));
 console.log(`Stations not snapped to any line: ${orphanStations.length}`);
 if (orphanStations.length) {
-  console.log("  e.g.:", orphanStations.slice(0, 8).map((s) => s.name).join(", "));
+  console.log(
+    "  e.g.:",
+    orphanStations
+      .slice(0, 8)
+      .map((s) => s.name)
+      .join(", "),
+  );
 }
 
 // ---------- 4. write output ----------
 
 fs.mkdirSync(path.dirname(OUT_PATH), { recursive: true });
-fs.writeFileSync(
-  OUT_PATH,
-  JSON.stringify({ stations, edges }, null, 0),
+fs.writeFileSync(OUT_PATH, JSON.stringify({ stations, edges }, null, 0));
+console.log(
+  `Wrote ${OUT_PATH} (${(fs.statSync(OUT_PATH).size / 1024).toFixed(1)} KB)`,
 );
-console.log(`Wrote ${OUT_PATH} (${(fs.statSync(OUT_PATH).size / 1024).toFixed(1)} KB)`);
