@@ -21,15 +21,32 @@ export type AvoidMultiPolygon = {
   coordinates: Polygon[];
 };
 
-// Edge-weight multipliers. Sidewalks (the only network we have) carry the user's
-// 10× weight; the synthetic connector edges from origin/destination to the
-// nearest graph point use 1× — these stand in for "other roads".
-const SIDEWALK_COST_MULTIPLIER = 10;
+// Per-meter cost multipliers. Lower = preferred. We route over sidewalks AND
+// regular roads in the same graph; sidewalks cost 1× and roads cost 5×, so the
+// algorithm prefers sidewalks but will fall back to roads where no sidewalk is
+// reachable. Connectors (origin/destination snap edges + 50 m noding bridges
+// between dangling LineString endpoints) are 1× — short by construction so the
+// equal-to-sidewalk rate doesn't dominate.
+const SIDEWALK_COST_MULTIPLIER = 1;
+const ROAD_COST_MULTIPLIER = 5;
 const CONNECTOR_COST_MULTIPLIER = 1;
+
+export type EdgeKind = "sidewalk" | "road" | "connector";
+
+const COST_BY_KIND: Record<EdgeKind, number> = {
+  sidewalk: SIDEWALK_COST_MULTIPLIER,
+  road: ROAD_COST_MULTIPLIER,
+  connector: CONNECTOR_COST_MULTIPLIER,
+};
 
 const WALK_SPEED_MPS = 1.4; // ~5 km/h, matches OSRM/ORS foot-walking default
 
-const SOURCES = ["taipei.geojson", "ntpc.geojson"];
+type SourceKind = "sidewalk" | "road";
+const SOURCES: { file: string; kind: SourceKind }[] = [
+  { file: "taipei.geojson", kind: "sidewalk" },
+  { file: "ntpc.geojson", kind: "sidewalk" },
+  { file: "taipei_road.geojson", kind: "road" },
+];
 
 // ~10 cm quantization. Tight enough to keep distinct intersections apart, loose
 // enough to merge endpoints that two OSM ways share but represent slightly
@@ -64,6 +81,7 @@ interface Edge {
   to: number;
   distance_m: number;
   cost: number;
+  kind: EdgeKind;
   // Polyline geometry of this edge (always [from, to] for a simple segment).
   coords: LngLat[];
 }
@@ -74,6 +92,7 @@ interface Segment {
   a: LngLat;
   b: LngLat;
   distance_m: number;
+  kind: SourceKind;
 }
 
 interface Graph {
@@ -126,25 +145,38 @@ async function loadGraph(): Promise<Graph> {
     return id;
   };
 
-  const addEdge = (from: number, to: number, a: LngLat, b: LngLat) => {
+  const addEdge = (
+    from: number,
+    to: number,
+    a: LngLat,
+    b: LngLat,
+    kind: SourceKind,
+  ) => {
     if (from === to) return;
     const d = haversineM(a, b);
     if (d === 0) return;
-    const cost = d * SIDEWALK_COST_MULTIPLIER;
-    adj[from].push({ to, distance_m: d, cost, coords: [a, b] });
-    adj[to].push({ to: from, distance_m: d, cost, coords: [b, a] });
-    segments.push({ fromId: from, toId: to, a, b, distance_m: d });
+    const cost = d * COST_BY_KIND[kind];
+    adj[from].push({ to, distance_m: d, cost, kind, coords: [a, b] });
+    adj[to].push({ to: from, distance_m: d, cost, kind, coords: [b, a] });
+    segments.push({ fromId: from, toId: to, a, b, distance_m: d, kind });
   };
 
-  for (const file of SOURCES) {
+  for (const { file, kind } of SOURCES) {
     const filePath = path.join(process.cwd(), "public", file);
     const raw = await fs.readFile(filePath, "utf8");
     const data = JSON.parse(raw) as {
-      features: { geometry: { type: string; coordinates: unknown } }[];
+      features: {
+        geometry: { type: string; coordinates: unknown };
+        properties?: Record<string, unknown>;
+      }[];
     };
     for (const feature of data.features) {
       const g = feature.geometry;
       if (!g || g.type !== "LineString") continue;
+      // Drop road segments where pedestrians are explicitly forbidden. We
+      // tolerate every other access tag (use_sidepath, customers, …) since
+      // foot routing on local Taipei roads is permissive in practice.
+      if (kind === "road" && feature.properties?.foot === "no") continue;
       const line = g.coordinates as LngLat[];
       if (!Array.isArray(line) || line.length < 2) continue;
       let prevId = addNode(line[0][0], line[0][1]);
@@ -153,7 +185,7 @@ async function loadGraph(): Promise<Graph> {
       for (let i = 1; i < line.length; i++) {
         const pt = line[i];
         const id = addNode(pt[0], pt[1]);
-        addEdge(prevId, id, prevPt, pt);
+        addEdge(prevId, id, prevPt, pt, kind);
         prevId = id;
         prevPt = pt;
       }
@@ -200,8 +232,20 @@ async function loadGraph(): Promise<Graph> {
           if (d === 0 || d > MERGE_RADIUS_M) continue;
           seenNeighbors.add(key);
           const cost = d * CONNECTOR_COST_MULTIPLIER;
-          adj[id].push({ to: other, distance_m: d, cost, coords: [p, q] });
-          adj[other].push({ to: id, distance_m: d, cost, coords: [q, p] });
+          adj[id].push({
+            to: other,
+            distance_m: d,
+            cost,
+            kind: "connector",
+            coords: [p, q],
+          });
+          adj[other].push({
+            to: id,
+            distance_m: d,
+            cost,
+            kind: "connector",
+            coords: [q, p],
+          });
         }
       }
     }
@@ -377,21 +421,33 @@ class MinHeap {
 }
 
 // Goal multiplier for the A* heuristic — must be a *lower bound* on per-meter
-// cost across all reachable edges. The cheapest edge type is the connector at
-// 1×, so 1× keeps the heuristic admissible (and therefore A* optimal).
+// cost across all reachable edges. The cheapest classes (sidewalk, connector)
+// are 1×, so 1× keeps the heuristic admissible (and therefore A* optimal).
 const HEURISTIC_MULTIPLIER = Math.min(
   SIDEWALK_COST_MULTIPLIER,
+  ROAD_COST_MULTIPLIER,
   CONNECTOR_COST_MULTIPLIER,
 );
 
-interface AStarResult {
-  coordinates: LngLat[];
+interface PathEdge {
+  coords: LngLat[]; // always [from, to] for a single A* hop
+  kind: EdgeKind;
   distance_m: number;
 }
 
-// Standard A* over the sidewalk graph. The two synthetic source/target nodes
-// are wired in via virtualAdj — their outgoing edges land on the real graph at
-// connector cost (1×) plus the cost along the split sidewalk segment (10×).
+interface AStarResult {
+  // Edges in source → target order. Each consecutive pair shares a vertex
+  // (edge[i].coords[1] === edge[i+1].coords[0]). The caller can stitch them
+  // into a single polyline or group by kind to render mixed-style routes.
+  edges: PathEdge[];
+  distance_m: number;
+  sidewalk_distance_m: number;
+}
+
+// Standard A* over the combined sidewalk + road graph. The two synthetic
+// source/target nodes are wired in via virtualAdj — their outgoing edges land
+// on the real graph at connector cost (1×) plus the cost along the split
+// segment (sidewalk 1× or road 5×, whichever the snapped segment belongs to).
 // `blockedNodes` (when present) is a Uint8Array indexed by node id; nodes
 // flagged are excluded from expansion (used for avoid-polygon support).
 function aStar(
@@ -417,9 +473,11 @@ function aStar(
 
   const cameFrom = new Int32Array(nodeCount);
   cameFrom.fill(-1);
-  // For path reconstruction, we also need the geometry of the edge that led to each node.
+  // For path reconstruction, we also need the geometry of the edge that led
+  // to each node, plus its kind so we can tally sidewalk vs road distance.
   const edgeIn: (LngLat[] | null)[] = new Array(nodeCount).fill(null);
   const edgeDist = new Float64Array(nodeCount);
+  const edgeKind: (EdgeKind | null)[] = new Array(nodeCount).fill(null);
 
   const closed = new Uint8Array(nodeCount);
   const heap = new MinHeap();
@@ -450,6 +508,7 @@ function aStar(
         cameFrom[e.to] = u;
         edgeIn[e.to] = e.coords;
         edgeDist[e.to] = e.distance_m;
+        edgeKind[e.to] = e.kind;
         const f =
           tentative + haversineM(coordOf(e.to), goal) * HEURISTIC_MULTIPLIER;
         heap.push(e.to, f);
@@ -462,33 +521,46 @@ function aStar(
   }
 
   // Reconstruct, walking backwards from target.
-  const segs: LngLat[][] = [];
+  const edges: PathEdge[] = [];
   let totalDist = 0;
+  let sidewalkDist = 0;
   let cursor = targetNode;
   while (cursor !== sourceNode) {
     const seg = edgeIn[cursor];
-    if (!seg) throw new Error("Path reconstruction broke");
-    segs.push(seg);
-    totalDist += edgeDist[cursor];
+    const k = edgeKind[cursor];
+    if (!seg || !k) throw new Error("Path reconstruction broke");
+    const d = edgeDist[cursor];
+    edges.push({ coords: seg, kind: k, distance_m: d });
+    totalDist += d;
+    if (k === "sidewalk") sidewalkDist += d;
     cursor = cameFrom[cursor];
   }
-  segs.reverse();
+  edges.reverse();
 
-  // Stitch segments into a single polyline, dropping the duplicated joint vertex.
-  const coordinates: LngLat[] = [];
-  for (let i = 0; i < segs.length; i++) {
-    const s = segs[i];
-    if (i === 0) coordinates.push(...s);
-    else coordinates.push(...s.slice(1));
-  }
+  return { edges, distance_m: totalDist, sidewalk_distance_m: sidewalkDist };
+}
 
-  return { coordinates, distance_m: totalDist };
+export interface PedestrianRouteSegment {
+  // Polyline of this run, sharing endpoints with the neighbouring runs.
+  coordinates: LngLat[];
+  kind: EdgeKind;
+  distance_m: number;
 }
 
 export interface PedestrianRoute {
+  // Stitched whole-route polyline. Kept for callers that only need geometry
+  // (e.g. transit walkLeg). Use `segments` to render mixed sidewalk/road
+  // styling — this single polyline can't carry per-edge kind information.
   coordinates: LngLat[];
+  // The route split into runs of consecutive same-kind edges, in order.
+  // Use this to colour sidewalk runs vs. road / connector runs separately.
+  segments: PedestrianRouteSegment[];
   distance_m: number;
   duration_s: number;
+  // Length of the route that lies on actual sidewalks (vs. regular roads).
+  sidewalk_distance_m: number;
+  // sidewalk_distance_m / distance_m, in [0, 1]. 0 when distance_m == 0.
+  sidewalk_ratio: number;
 }
 
 export interface FindPedestrianRouteOptions {
@@ -565,8 +637,11 @@ function buildBlockedNodes(graph: Graph, avoid: AvoidMultiPolygon): Uint8Array {
 
 // For one query endpoint, allocate a user-point virtual node plus one snap-
 // foot virtual node per candidate segment, with all the connector / split-
-// sidewalk edges wired in. Returns the user-point virtual id and the list of
-// real graph nodes that gained back-edges (so the caller can roll them back).
+// segment edges wired in. The split-segment edges inherit the snapped
+// segment's kind (sidewalk or road) so the cost and the sidewalk-distance
+// tally use the correct multiplier. Returns the user-point virtual id and
+// the list of real graph nodes that gained back-edges (so the caller can
+// roll them back).
 function wireEndpoint(
   graph: Graph,
   point: LngLat,
@@ -595,30 +670,35 @@ function wireEndpoint(
       to: footId,
       distance_m: connectorDist,
       cost: connectorCost,
+      kind: "connector",
       coords: [point, snap.foot],
     });
 
     const segLen = seg.distance_m;
     const distToA = segLen * snap.t;
     const distToB = segLen * (1 - snap.t);
+    const segMul = COST_BY_KIND[seg.kind];
 
     const footEdges: Edge[] = [
       {
         to: userId,
         distance_m: connectorDist,
         cost: connectorCost,
+        kind: "connector",
         coords: [snap.foot, point],
       },
       {
         to: seg.fromId,
         distance_m: distToA,
-        cost: distToA * SIDEWALK_COST_MULTIPLIER,
+        cost: distToA * segMul,
+        kind: seg.kind,
         coords: [snap.foot, seg.a],
       },
       {
         to: seg.toId,
         distance_m: distToB,
-        cost: distToB * SIDEWALK_COST_MULTIPLIER,
+        cost: distToB * segMul,
+        kind: seg.kind,
         coords: [snap.foot, seg.b],
       },
     ];
@@ -629,13 +709,15 @@ function wireEndpoint(
     graph.adj[seg.fromId].push({
       to: footId,
       distance_m: distToA,
-      cost: distToA * SIDEWALK_COST_MULTIPLIER,
+      cost: distToA * segMul,
+      kind: seg.kind,
       coords: [seg.a, snap.foot],
     });
     graph.adj[seg.toId].push({
       to: footId,
       distance_m: distToB,
-      cost: distToB * SIDEWALK_COST_MULTIPLIER,
+      cost: distToB * segMul,
+      kind: seg.kind,
       coords: [seg.b, snap.foot],
     });
     touchedNodes.push(seg.fromId, seg.toId);
@@ -714,40 +796,94 @@ export async function findPedestrianRoute(
       blockedNodes,
     );
 
+    // Group consecutive same-kind edges into runs so the caller can render
+    // each run with its own style (sidewalk green, road/connector black, …).
+    const segments: PedestrianRouteSegment[] = [];
+    for (const e of result.edges) {
+      const last = segments[segments.length - 1];
+      if (last && last.kind === e.kind) {
+        // Adjacent edges share a vertex (last.coordinates' tail ===
+        // e.coords[0]), so append only the new endpoint to avoid duplicating
+        // the joint.
+        last.coordinates.push(...e.coords.slice(1));
+        last.distance_m += e.distance_m;
+      } else {
+        segments.push({
+          coordinates: [...e.coords],
+          kind: e.kind,
+          distance_m: e.distance_m,
+        });
+      }
+    }
+
+    // Stitch all runs into a single polyline for callers that only want
+    // whole-route geometry (transit walkLeg, etc.).
+    const coordinates: LngLat[] = [];
+    for (let i = 0; i < segments.length; i++) {
+      const s = segments[i].coordinates;
+      if (i === 0) coordinates.push(...s);
+      else coordinates.push(...s.slice(1));
+    }
+
     return {
-      coordinates: result.coordinates,
+      coordinates,
+      segments,
       distance_m: result.distance_m,
       duration_s: result.distance_m / WALK_SPEED_MPS,
+      sidewalk_distance_m: result.sidewalk_distance_m,
+      sidewalk_ratio:
+        result.distance_m > 0
+          ? result.sidewalk_distance_m / result.distance_m
+          : 0,
     };
   } finally {
     restoreAdj(graph, touched, before);
   }
 }
 
-// Convenience helper that wraps the A* result in the same FeatureCollection
-// shape the existing /api/navigate handlers return for ORS responses. Keeps
-// API consumers working without changes.
+// Stroke colours per surface kind. Sidewalks render green; everything else
+// (road carriageway, snap connector, noding bridge) renders black so the
+// caller can show "user is currently not on a sidewalk" segments at a glance.
+const STROKE_BY_KIND: Record<EdgeKind, string> = {
+  sidewalk: "#22C55E",
+  road: "#000000",
+  connector: "#000000",
+};
+
+// Convenience helper that wraps the A* result in a FeatureCollection. We
+// emit one Feature per run of consecutive same-kind edges so the caller can
+// style sidewalk vs. non-sidewalk segments differently — a single stitched
+// LineString can't carry mixed styling. Aggregate route stats live on the
+// first feature's properties (matching the previous shape).
 export async function findPedestrianRouteFeatureCollection(
   origin: LngLat,
   destination: LngLat,
   options: FindPedestrianRouteOptions = {},
 ): Promise<WalkFeatureCollection> {
   const route = await findPedestrianRoute(origin, destination, options);
-  return {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        geometry: { type: "LineString", coordinates: route.coordinates },
-        properties: {
-          mode: "pedestrian",
-          provider: "astar-sidewalks",
-          distance_m: route.distance_m,
-          duration_s: route.duration_s,
-          sidewalk_cost_multiplier: SIDEWALK_COST_MULTIPLIER,
-          stroke: "#22C55E",
-        },
-      },
-    ],
-  };
+  const features = route.segments.map((s, i) => ({
+    type: "Feature" as const,
+    geometry: {
+      type: "LineString" as const,
+      coordinates: s.coordinates,
+    },
+    properties: {
+      kind: s.kind,
+      segment_distance_m: s.distance_m,
+      stroke: STROKE_BY_KIND[s.kind],
+      ...(i === 0
+        ? {
+            mode: "pedestrian",
+            provider: "astar-sidewalks-roads",
+            distance_m: route.distance_m,
+            duration_s: route.duration_s,
+            sidewalk_distance_m: route.sidewalk_distance_m,
+            sidewalk_ratio: route.sidewalk_ratio,
+            sidewalk_cost_multiplier: SIDEWALK_COST_MULTIPLIER,
+            road_cost_multiplier: ROAD_COST_MULTIPLIER,
+          }
+        : {}),
+    },
+  }));
+  return { type: "FeatureCollection", features };
 }
