@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import { findPedestrianRoute } from "@/utils/walkRouter";
+import { findPedestrianRouteFeatureCollection } from "@/utils/walkRouter";
 
 export type TravelMode = "car" | "pedestrian";
 export type LngLat = [number, number];
@@ -285,29 +285,21 @@ export async function GET(request: NextRequest) {
       : { geometry: null, vertexCount: 0, featureCount: 0 };
 
     if (mode === "pedestrian") {
-      const route = await findPedestrianRoute(origin, destination, {
-        avoid: avoid.geometry,
-      });
-      const fc: FeatureCollection = {
-        type: "FeatureCollection",
-        features: [
-          {
-            type: "Feature",
-            geometry: { type: "LineString", coordinates: route.coordinates },
-            properties: {
-              mode,
-              provider: "astar-sidewalks",
-              distance_m: route.distance_m,
-              duration_s: route.duration_s,
-              avoid_source: AVOID_SOURCE_PATH,
-              avoid_radius_m: AVOID_RADIUS_M,
-              avoid_feature_count: avoid.featureCount,
-              avoid_vertex_count: avoid.vertexCount,
-              stroke: "#22C55E",
-            },
-          },
-        ],
-      };
+      const fc = (await findPedestrianRouteFeatureCollection(
+        origin,
+        destination,
+        { avoid: avoid.geometry },
+      )) as FeatureCollection;
+      // Attach avoid metadata to the summary feature (the first one carries
+      // route-level properties; per-segment features keep their own kind/stroke).
+      if (fc.features.length > 0) {
+        Object.assign(fc.features[0].properties, {
+          avoid_source: AVOID_SOURCE_PATH,
+          avoid_radius_m: AVOID_RADIUS_M,
+          avoid_feature_count: avoid.featureCount,
+          avoid_vertex_count: avoid.vertexCount,
+        });
+      }
       return Response.json(fc);
     }
 
