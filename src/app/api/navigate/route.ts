@@ -19,30 +19,33 @@ type Feature = {
 };
 type FeatureCollection = { type: "FeatureCollection"; features: Feature[] };
 
-interface OsrmStep {
+interface OrsStep {
   distance: number;
   duration: number;
+  type: number;
+  instruction: string;
   name: string;
+  way_points: [number, number];
+}
+
+interface OrsFeature {
+  type: "Feature";
   geometry: LineString;
-  maneuver: { type: string; modifier?: string; location: LngLat };
+  properties: {
+    summary: { distance: number; duration: number };
+    segments: { distance: number; duration: number; steps: OrsStep[] }[];
+  };
 }
 
-interface OsrmRoute {
-  distance: number;
-  duration: number;
-  geometry: LineString;
-  legs: { steps: OsrmStep[] }[];
+interface OrsResponse {
+  type: "FeatureCollection";
+  features: OrsFeature[];
+  error?: { code: number; message: string } | string;
 }
 
-interface OsrmResponse {
-  code: string;
-  message?: string;
-  routes?: OsrmRoute[];
-}
-
-const OSRM_PROFILE: Record<Exclude<TravelMode, "transit">, string> = {
-  car: "driving",
-  pedestrian: "foot",
+const ORS_PROFILE: Record<Exclude<TravelMode, "transit">, string> = {
+  car: "driving-car",
+  pedestrian: "foot-walking",
 };
 
 function isLngLat(v: unknown): v is LngLat {
@@ -80,48 +83,67 @@ function parseSearchParams(
   return { origin, destination, mode };
 }
 
-async function routeViaOsrm(
+async function routeViaOrs(
   origin: LngLat,
   destination: LngLat,
   mode: Exclude<TravelMode, "transit">,
 ): Promise<FeatureCollection> {
-  const profile = OSRM_PROFILE[mode];
-  const coords = `${origin[0]},${origin[1]};${destination[0]},${destination[1]}`;
-  const url = `https://router.project-osrm.org/route/v1/${profile}/${coords}?overview=full&geometries=geojson&steps=true`;
-
-  const res = await fetch(url, { headers: { Accept: "application/json" } });
-  if (!res.ok) throw new Error(`OSRM ${res.status}: ${await res.text()}`);
-
-  const data = (await res.json()) as OsrmResponse;
-  if (data.code !== "Ok" || !data.routes?.length) {
-    throw new Error(`OSRM: ${data.code}${data.message ? ` - ${data.message}` : ""}`);
+  const apiKey = process.env.OPENROUTESERVICE_API_KEY;
+  if (!apiKey) {
+    throw new Error("OPENROUTESERVICE_API_KEY is not set");
   }
 
-  const route = data.routes[0];
-  const steps = route.legs.flatMap((leg) => leg.steps);
+  const profile = ORS_PROFILE[mode];
+  const url = `https://api.openrouteservice.org/v2/directions/${profile}/geojson`;
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: apiKey,
+      "Content-Type": "application/json",
+      Accept: "application/geo+json, application/json",
+    },
+    body: JSON.stringify({ coordinates: [origin, destination] }),
+  });
+
+  const data = (await res.json()) as OrsResponse;
+  if (!res.ok || !data.features?.length) {
+    const msg =
+      typeof data.error === "string"
+        ? data.error
+        : data.error?.message ?? `HTTP ${res.status}`;
+    throw new Error(`ORS: ${msg}`);
+  }
+
+  const feature = data.features[0];
+  const coords = feature.geometry.coordinates;
+  const steps = feature.properties.segments.flatMap((seg) => seg.steps);
 
   return {
     type: "FeatureCollection",
     features: [
       {
         type: "Feature",
-        geometry: route.geometry,
+        geometry: feature.geometry,
         properties: {
           mode,
-          provider: "osrm",
-          distance_m: route.distance,
-          duration_s: route.duration,
+          provider: "openrouteservice",
+          distance_m: feature.properties.summary.distance,
+          duration_s: feature.properties.summary.duration,
         },
       },
       ...steps.map<Feature>((s, i) => ({
         type: "Feature",
-        geometry: s.geometry,
+        geometry: {
+          type: "LineString",
+          coordinates: coords.slice(s.way_points[0], s.way_points[1] + 1),
+        },
         properties: {
           kind: "step",
           index: i,
           name: s.name,
-          maneuver: s.maneuver.type,
-          modifier: s.maneuver.modifier ?? null,
+          instruction: s.instruction,
+          maneuver_type: s.type,
           distance_m: s.distance,
           duration_s: s.duration,
         },
@@ -167,7 +189,7 @@ export async function GET(request: NextRequest) {
     const geojson =
       mode === "transit"
         ? placeholderTransit(origin, destination)
-        : await routeViaOsrm(origin, destination, mode);
+        : await routeViaOrs(origin, destination, mode);
     return Response.json(geojson);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown routing error";
