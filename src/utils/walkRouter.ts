@@ -745,6 +745,7 @@ export async function findPedestrianRouteFeatureCollection(
           distance_m: route.distance_m,
           duration_s: route.duration_s,
           sidewalk_cost_multiplier: SIDEWALK_COST_MULTIPLIER,
+          stroke: "#22C55E",
         },
       },
     ],

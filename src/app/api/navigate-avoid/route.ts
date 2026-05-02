@@ -303,6 +303,7 @@ export async function GET(request: NextRequest) {
               avoid_radius_m: AVOID_RADIUS_M,
               avoid_feature_count: avoid.featureCount,
               avoid_vertex_count: avoid.vertexCount,
+              stroke: "#22C55E",
             },
           },
         ],

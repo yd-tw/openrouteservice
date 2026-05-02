@@ -350,7 +350,13 @@ async function walkLeg(
     return {
       type: "Feature",
       geometry: { type: "LineString", coordinates: [from, to] },
-      properties: { kind: "walk", label, distance_m: 0, duration_s: 0 },
+      properties: {
+        kind: "walk",
+        label,
+        distance_m: 0,
+        duration_s: 0,
+        stroke: "#22C55E",
+      },
     };
   }
   const route = await findPedestrianRoute(from, to);
@@ -362,6 +368,7 @@ async function walkLeg(
       label,
       distance_m: route.distance_m,
       duration_s: route.duration_s,
+      stroke: "#22C55E",
     },
   };
 }
@@ -388,6 +395,7 @@ async function routeTransit(
             note: `Origin and destination share nearest station (${board.station.name}); walking only.`,
             distance_m: walk.properties.distance_m,
             duration_s: walk.properties.duration_s,
+            stroke: "#22C55E",
           },
         },
         walk,
@@ -421,6 +429,7 @@ async function routeTransit(
       from: leg.from,
       to: leg.to,
       distance_m: leg.distance_m,
+      stroke: "#1E90FF",
     },
   }));
 
@@ -447,6 +456,7 @@ async function routeTransit(
       transfers: Math.max(0, transitLegs.length - 1),
       lines: transitLegs.map((l) => l.line),
       distance_m: Math.round(totalDistance),
+      stroke: "#1E90FF",
     },
   };
 
