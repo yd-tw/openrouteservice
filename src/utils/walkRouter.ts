@@ -9,9 +9,19 @@ type Feature = {
   geometry: LineString;
   properties: Record<string, unknown>;
 };
+export interface WalkRouteMetadata {
+  mode: "pedestrian";
+  distance_m: number;
+  duration_s: number;
+  sidewalk_distance_m: number;
+  // sidewalk_distance_m / distance_m, in [0, 1]. 0 when distance_m == 0.
+  sidewalk_ratio: number;
+}
+
 export type WalkFeatureCollection = {
   type: "FeatureCollection";
   features: Feature[];
+  metadata: WalkRouteMetadata;
 };
 
 type Ring = LngLat[];
@@ -885,5 +895,15 @@ export async function findPedestrianRouteFeatureCollection(
         : {}),
     },
   }));
-  return { type: "FeatureCollection", features };
+  return {
+    type: "FeatureCollection",
+    features,
+    metadata: {
+      mode: "pedestrian",
+      distance_m: route.distance_m,
+      duration_s: route.duration_s,
+      sidewalk_distance_m: route.sidewalk_distance_m,
+      sidewalk_ratio: route.sidewalk_ratio,
+    },
+  };
 }

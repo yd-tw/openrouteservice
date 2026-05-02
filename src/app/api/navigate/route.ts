@@ -21,7 +21,11 @@ type Feature = {
   geometry: LineString;
   properties: Record<string, unknown>;
 };
-type FeatureCollection = { type: "FeatureCollection"; features: Feature[] };
+type FeatureCollection = {
+  type: "FeatureCollection";
+  features: Feature[];
+  metadata?: Record<string, unknown>;
+};
 
 interface OrsStep {
   distance: number;
@@ -383,6 +387,7 @@ async function routeTransit(
   // If the closest entrance for both is the same station, just walk.
   if (board.station.name === alight.station.name) {
     const walk = await walkLeg(origin, destination, "walk");
+    const walkDist = Number(walk.properties.distance_m) || 0;
     return {
       type: "FeatureCollection",
       features: [
@@ -400,6 +405,13 @@ async function routeTransit(
         },
         walk,
       ],
+      metadata: {
+        mode: "transit",
+        distance_m: walkDist,
+        walk_distance_m: walkDist,
+        transit_distance_m: 0,
+        transit_ratio: 0,
+      },
     };
   }
 
@@ -433,10 +445,11 @@ async function routeTransit(
     },
   }));
 
-  const totalDistance =
+  const walkDistance =
     (Number(walkToBoard.properties.distance_m) || 0) +
-    transitLegs.reduce((s, l) => s + l.distance_m, 0) +
     (Number(walkFromAlight.properties.distance_m) || 0);
+  const transitDistance = transitLegs.reduce((s, l) => s + l.distance_m, 0);
+  const totalDistance = walkDistance + transitDistance;
 
   const summary: Feature = {
     type: "Feature",
@@ -463,6 +476,15 @@ async function routeTransit(
   return {
     type: "FeatureCollection",
     features: [summary, walkToBoard, ...transitFeatures, walkFromAlight],
+    metadata: {
+      mode: "transit",
+      distance_m: Math.round(totalDistance),
+      walk_distance_m: Math.round(walkDistance),
+      transit_distance_m: Math.round(transitDistance),
+      // Fraction of total trip distance covered by transit (vs walking).
+      // 0 when distance_m == 0.
+      transit_ratio: totalDistance > 0 ? transitDistance / totalDistance : 0,
+    },
   };
 }
 

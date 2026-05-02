@@ -25,7 +25,11 @@ type Feature = {
   geometry: LineString;
   properties: Record<string, unknown>;
 };
-type FeatureCollection = { type: "FeatureCollection"; features: Feature[] };
+type FeatureCollection = {
+  type: "FeatureCollection";
+  features: Feature[];
+  metadata?: Record<string, unknown>;
+};
 
 interface OrsStep {
   distance: number;
@@ -285,21 +289,22 @@ export async function GET(request: NextRequest) {
       : { geometry: null, vertexCount: 0, featureCount: 0 };
 
     if (mode === "pedestrian") {
-      const fc = (await findPedestrianRouteFeatureCollection(
+      const walkFc = await findPedestrianRouteFeatureCollection(
         origin,
         destination,
         { avoid: avoid.geometry },
-      )) as FeatureCollection;
-      // Attach avoid metadata to the summary feature (the first one carries
-      // route-level properties; per-segment features keep their own kind/stroke).
-      if (fc.features.length > 0) {
-        Object.assign(fc.features[0].properties, {
+      );
+      const fc: FeatureCollection = {
+        type: "FeatureCollection",
+        features: walkFc.features as Feature[],
+        metadata: {
+          ...walkFc.metadata,
           avoid_source: AVOID_SOURCE_PATH,
           avoid_radius_m: AVOID_RADIUS_M,
           avoid_feature_count: avoid.featureCount,
           avoid_vertex_count: avoid.vertexCount,
-        });
-      }
+        },
+      };
       return Response.json(fc);
     }
 
