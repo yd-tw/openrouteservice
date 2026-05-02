@@ -1,44 +1,18 @@
-## 範例測試案例
+# Test Case
 
-起點：121.5430, 25.0418（忠孝復興站東側）  
- 終點：121.5510, 25.0413（忠孝敦化站東側）
-模式：car
+## 路障
 
-兩點之間的直線剛好被 忠孝東路四段73號（121.5469574, 25.0417918）這個封閉點切斷。
+起點：121.5430, 25.0418（忠孝復興站東側）
+終點：121.5510, 25.0413（忠孝敦化站東側）
+封閉：（121.5469574, 25.0417918）
 
-呼叫
+GET https://openrouteservice.ydtw.net/api/navigate?origin=121.5430,25.0418&destination=121.5510,25.0413&mode=car
+GET https://openrouteservice.ydtw.net/api/navigate-avoid?origin=121.5430,25.0418&destination=121.5510,25.0413&mode=car
 
-GET http://localhost:3000/api/navigate?origin=121.5430,25.0418&destination=121.5510,25.0413&mode=car
-GET http://localhost:3000/api/navigate-avoid?origin=121.5430,25.0418&destination=121.5510,25.0413&mode=car
+## 人行道覆蓋
 
-結果差異（features[0].properties）
+https://openrouteservice.ydtw.net/api/navigate?origin=121.5470,25.1180&destination=121.5485,25.1020&mode=pedestrian
 
-┌─────────────────────┬────────────────┬─────────────────────┬────────────────┐
-│ 欄位 │ /api/navigate │ /api/navigate-avoid │ 差 │
-├─────────────────────┼────────────────┼─────────────────────┼────────────────┤
-│ distance_m │ 1157.4 │ 1748.4 │ +591 m（+51%） │
-├─────────────────────┼────────────────┼─────────────────────┼────────────────┤
-│ duration_s │ 132.1（≈2:12） │ 197.2（≈3:17） │ +65 s │
-├─────────────────────┼────────────────┼─────────────────────┼────────────────┤
-│ step_count │ 5 │ 6 │ +1 │
-├─────────────────────┼────────────────┼─────────────────────┼────────────────┤
-│ avoid_feature_count │ — │ 116 │ — │
-├─────────────────────┼────────────────┼─────────────────────┼────────────────┤
-│ avoid_vertex_count │ — │ 116 │ — │
-└─────────────────────┴────────────────┴─────────────────────┴────────────────┘
+## 大眾運輸
 
-路徑差異（前 3 個 step instruction）
-
-/api/navigate（直接走忠孝東路，會壓到封閉點）
-
-1. Head north on 安東街 27.1 m
-2. Turn left onto 忠孝東路三段251巷1弄 135.4 m
-3. Turn left onto 忠孝東路三段251巷 51.3 m
-   ...接著沿 忠孝東路 一路向東 → 經過 73號 封閉區
-
-/api/navigate-avoid（往北繞市民大道）
-
-1. Head northwest on 安東街 259 m
-2. Turn right onto 市民大道三段 680.8 m ← 整段繞到忠孝東路北側
-3. Turn right onto 敦化南路一段 480.3 m
-   ...再從敦化南路往南切回終點，避開 73號 100m 緩衝
+https://openrouteservice.ydtw.net/api/navigate?origin=121.5170,25.0478&destination=121.5675,25.0359&mode=transit
