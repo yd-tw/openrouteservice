@@ -137,7 +137,7 @@ async function routeViaOrs(
         type: "Feature",
         geometry: {
           type: "LineString",
-          coordinates: coords.slice(s.way_points[0], s.way_points[1] + 1),
+          coordinates: stepCoords(coords, s.way_points),
         },
         properties: {
           kind: "step",
@@ -151,6 +151,16 @@ async function routeViaOrs(
       })),
     ],
   };
+}
+
+// ORS emits zero-length steps (notably the arrival step with
+// way_points: [N, N]). Slicing those yields a single-point LineString, which
+// is invalid GeoJSON. Pad backward by one so the step still represents the
+// final approach segment.
+function stepCoords(coords: LngLat[], [a, b]: [number, number]): LngLat[] {
+  if (b > a) return coords.slice(a, b + 1);
+  if (a > 0) return coords.slice(a - 1, b + 1);
+  return [coords[a], coords[a]];
 }
 
 // ---------- Transit (Taipei MRT) ----------
