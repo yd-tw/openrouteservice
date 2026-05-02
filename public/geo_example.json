@@ -1,80 +1,13 @@
-{
-  "type": "FeatureCollection",
-  "features": [
-    {
-      "type": "Feature",
-      "properties": {
-        "ral_address1": "大安區忠孝東路四段73號至97號、忠孝東路四段120號至134號 自門牌號至門牌號",
-        "ral_address2": "忠孝東路四段77巷（已向中心綜合醫院申請） 自門牌號至門牌號",
-        "road": "忠孝東路四段",
-        "house": "73號",
-        "district": "大安區",
-        "city": "臺北市"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [121.5469574, 25.0417918]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "ral_address1": "松山區八德路三段１２巷５１弄３０號 自門牌號至門牌號",
-        "ral_address2": null,
-        "road": "八德路三段12巷51弄",
-        "house": "30號",
-        "district": "松山區",
-        "city": "臺北市"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [121.5516545, 25.0460883]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "ral_address1": "中山區林森北路３９９巷２號 自門牌號至門牌號",
-        "ral_address2": "中山區林森北路４０１號 自門牌號至門牌號",
-        "road": "林森北路399巷",
-        "house": "2號",
-        "district": "中山區",
-        "city": "臺北市"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [121.5257221, 25.0591041]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "ral_address1": "松山區復興北路１０１號 自門牌號至門牌號",
-        "ral_address2": null,
-        "road": "復興北路",
-        "house": "101號",
-        "district": "松山區",
-        "city": "臺北市"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [121.544281, 25.052987]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "ral_address1": "北投區東華街一段400巷4號 自門牌號至門牌號",
-        "ral_address2": "北投區東華街一段398號 自門牌號至門牌號",
-        "road": "東華街一段400巷",
-        "house": "4號",
-        "district": "北投區",
-        "city": "臺北市"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [121.5186215, 25.1106755]
-      }
-    }
-  ]
-}
+  {                                                                                                                   
+    "type": "FeatureCollection",
+    "features": [
+      { "type": "Feature", "properties": { "addr": "忠孝東路四段73號" },
+        "geometry": { "type": "Point", "coordinates": [121.5469574, 25.0417918] } },
+      { "type": "Feature", "properties": { "addr": "復興北路101號" },
+        "geometry": { "type": "Point", "coordinates": [121.544281, 25.052987] } },
+      { "type": "Feature", "properties": { "addr": "林森北路399巷2號" },
+        "geometry": { "type": "Point", "coordinates": [121.5257221, 25.0591041] } },
+      { "type": "Feature", "properties": { "addr": "南京西路15號" },
+        "geometry": { "type": "Point", "coordinates": [121.554501, 25.041341] } }
+    ]
+  }
