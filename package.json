@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "build:transit": "node scripts/build-transit-data.mjs"
+    "build:transit": "node scripts/build-transit-data.mjs",
+    "build:geo": "node scripts/build-geo-example.mjs"
   },
   "dependencies": {
     "next": "16.2.4",
